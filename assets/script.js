@@ -2,6 +2,8 @@
 var qaSection = $("#qa-section");
 var qaStart = $("#qa-start");
 var qaWelcome = $("#qa-welcome");
+var questionPrompt = $("#question-prompt");
+var answerChoicees = $("#answer-choices");
 var correct = $("#correct");
 var wrong = $("#wrong");
 
@@ -10,6 +12,9 @@ var count = 60;
 
 // start at question 0 in array and iterate by 1 each time
 var currentQuestion = 0;
+
+var correctAnswers = 0;
+var wrongAnswers = 0;
 
 //array of possible questions
 var questions = [
@@ -39,10 +44,6 @@ function timesUp() {
 }
 
 function startGame() {
-  //start by fading the question section in
-  qaSection.fadeIn();
-  showWrong();
-
   //start the countdown
   var countDown = setInterval(() => {
     // when timer reaches 0 remove interval and execute timesUp
@@ -51,6 +52,8 @@ function startGame() {
       timesUp();
       return;
     }
+
+    nextQuestion();
 
     console.log(count);
     // update time ever second and -1 until we get to 0
@@ -68,4 +71,18 @@ function showCorrect() {
 function showWrong() {
   wrong.show();
   wrong.hide(3000);
+}
+
+function nextQuestion() {
+  if (currentQuestion >= questions.length) return;
+  let { qs, answers, correctAnswer } = questions[currentQuestion];
+
+  questionPrompt.text(qs);
+  answerChoicees.html("");
+  answers.forEach((ans) => {
+    let qsButton = `<button type="button" class="btn btn-sm" onClick="selectAnswer('${ans}')">${ans}</button>`;
+    answerChoicees.append(qsButton);
+  });
+  //start by fading the question section in
+  qaSection.fadeIn();
 }
