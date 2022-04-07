@@ -45,7 +45,7 @@ $(() => {
 // what to do when time is up?
 function handleGameOver() {
   console.log("game over!");
-  countDown = null;
+  clearInterval(countDown);
   count = 0;
   $("#cur-time").text("0");
   qaSection.hide(() => $(qaGameOver.fadeIn()));
@@ -56,7 +56,7 @@ function startGame() {
   countDown = setInterval(() => {
     // when timer reaches 0 remove interval and execute gameOver
     if (count < 0) {
-      countDown = null;
+      clearInterval(countDown);
       handleGameOver();
       return;
     }
@@ -86,6 +86,7 @@ function handleWrong() {
 
 function nextQuestion() {
   if (currentQuestion >= questions.length) {
+    console.log("reached last question");
     handleGameOver();
     return;
   }
