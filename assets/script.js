@@ -2,7 +2,7 @@
 var qaSection = $("#qa-section");
 var qaStart = $("#qa-start");
 var qaWelcome = $("#qa-welcome");
-var qaGameOver = $("qa-game-over");
+var qaGameOver = $("#qa-game-over");
 var questionPrompt = $("#question-prompt");
 var answerChoicees = $("#answer-choices");
 var correct = $("#correct");
@@ -48,7 +48,10 @@ function handleGameOver() {
   clearInterval(countDown);
   count = 0;
   $("#cur-time").text("0");
-  qaSection.hide(() => $(qaGameOver.fadeIn()));
+  qaSection.hide(() => {
+    qaGameOver.css({ display: "flex" });
+    $(qaGameOver.fadeIn());
+  });
 }
 
 function startGame() {
