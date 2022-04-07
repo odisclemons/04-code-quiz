@@ -30,6 +30,7 @@
                 <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
                     answers will penalize your score time by 10 seconds!</p>
                 <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
+                <button id="ls-test" type="button" class="btn btn-sm">Test Local Storage</button>
             </div>
             <div id="qa-section" class="col-6" style="display: none;">
                 <h1 id="question-prompt">
@@ -43,8 +44,10 @@
                 <h1>Game over</h1>
                 <p>Your score is: <span id="score"></span></p>
                 <div class="in-a-row">
-                    <p>Enter initials: </p> <input type="text" class="form-control" aria-label="Enter your initials">
-                    <button type="button" class="btn btn-sm">Submit</button>
+                    <p>Enter initials: </p> <input id="inp-hs" type="text" class="form-control"
+                        aria-label="Enter your initials" maxlength="3" placeholder="3 characters">
+                    <button id="btn-hs-submit" type="button" class="btn btn-sm"
+                        onclick="handleHsSubmit()">Submit</button>
                 </div>
             </div>
             <div id="high-scores" class="col-6">

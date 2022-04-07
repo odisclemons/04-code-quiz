@@ -5,8 +5,15 @@ var qaWelcome = $("#qa-welcome");
 var qaGameOver = $("#qa-game-over");
 var questionPrompt = $("#question-prompt");
 var answerChoicees = $("#answer-choices");
+var btnHsSubmit = $("#btn-hs-submit");
+var inpHs = $("#inp-hs")[0];
 var correct = $("#correct");
 var wrong = $("#wrong");
+
+// ********************************* remove ********************************* \\
+var lsTest = $("#ls-test");
+
+// ********************************* remove ********************************* \\
 
 // start time at 60 seconds
 var count = 60;
@@ -128,4 +135,25 @@ function checkAnswer(answer) {
 
   // fade the section and execute next question as the callback
   qaSection.fadeOut(nextQuestion);
+}
+
+// handle submit for initials screen
+function handleHsSubmit() {
+  // make sure length is only 3 chars
+  if (!inpHs || inpHs.length > 3 || inpHs.length < 1) return;
+
+  // store name (uppercase) and score values
+  let newScore = { name: inpHs.value.toUpperCase(), score: correctAnswers };
+
+  //get current array from localstorage
+  let scores = JSON.parse(localStorage.getItem("cqScores"));
+
+  // if its an array, spread operator to add new score to it
+  if (Array.isArray(scores)) {
+    localStorage.setItem("cqScores", JSON.stringify([...scores, newScore]));
+  } else {
+    // otherwise, something else is in there or its null
+    // replace it with the new score in its own array
+    localStorage.setItem("cqScores", JSON.stringify([newScore]));
+  }
 }
