@@ -32,15 +32,21 @@
                 <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
             </div>
             <div id="qa-section" class="col-6" style="display: none;">
-                <h1 id="question">Developer test questions can happen when dev is in which state?</h1>
+                <h1 id="question">
+                    <!-- Questions will go here -->
+                </h1>
                 <div id="answer-choices">
-                    <button type="button" class="btn btn-sm">Primary</button>
-                    <button type="button" class="btn btn-sm">Primary</button>
-                    <button type="button" class="btn btn-sm">Primary</button>
+                    <!-- Answers will go here -->
                 </div>
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div id='feedback' class="col-6">
+                <p id="correct" class="text-success">Correct</p>
+                <p id="wrong" class="text-danger">Wrong</p>
+
+            </div>
+        </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

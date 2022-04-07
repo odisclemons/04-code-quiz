@@ -2,6 +2,8 @@
 var qaSection = $("#qa-section");
 var qaStart = $("#qa-start");
 var qaWelcome = $("#qa-welcome");
+var correct = $("#correct");
+var wrong = $("#wrong");
 
 // start time at 60 seconds
 var count = 60;
@@ -27,7 +29,7 @@ var questions = [
 $(() => {
   qaStart.click(() => {
     // after click, fadeout welcome screen for 2 seconds then trigger start game function
-    qaWelcome.fadeOut(2000, () => startGame());
+    qaWelcome.fadeOut(1500, () => startGame());
   });
 });
 
@@ -39,6 +41,7 @@ function timesUp() {
 function startGame() {
   //start by fading the question section in
   qaSection.fadeIn();
+  showWrong();
 
   //start the countdown
   var countDown = setInterval(() => {
@@ -55,4 +58,14 @@ function startGame() {
     $("#cur-time").text(count);
     count--;
   }, 1000);
+}
+
+function showCorrect() {
+  correct.show();
+  correct.hide(3000);
+}
+
+function showWrong() {
+  wrong.show();
+  wrong.hide(3000);
 }
