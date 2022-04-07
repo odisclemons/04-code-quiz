@@ -16,8 +16,15 @@ p {
   background-color: var(--primary);
   color: #fff;
   margin: 0.25rem;
-  width: 10rem;
+  padding: 0 0.5rem;
+  display: inline;
 }
+
+.btn:hover {
+  color: #fff;
+  background-color: purple;
+}
+
 .header-col {
   display: flex;
   margin: 0.5rem;
@@ -29,6 +36,21 @@ p {
 
 #qa-section {
   margin: auto;
+  display: none;
+}
+
+#qa-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  color: black;
+}
+
+#qa-message p {
+  color: black;
 }
 
 #answer-choices {
@@ -37,4 +59,5 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  align-items: start;
 }

@@ -1,17 +1,23 @@
-var count = 60;
+var count = 3;
 
 $(() => {
   console.log("ready");
   let qaSection = $("#qa-section");
-  qaSection.fadeIn(10000);
+  //qaSection.fadeIn(1000);
 
   var countDown = setInterval(() => {
-    if (count === 0) {
+    if (count < 0) {
       countDown = null;
+      timesUp();
       return;
     }
-    count--;
+
     console.log(count);
     $("#cur-time").text(count);
+    count--;
   }, 1000);
 });
+
+function timesUp() {
+  console.log("Time is up!");
+}
