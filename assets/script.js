@@ -109,8 +109,10 @@ function nextQuestion() {
 
   questionPrompt.text(qs);
   answerChoicees.html("");
-  answers.forEach((ans) => {
-    let qsButton = `<button type="button" class="btn btn-sm" onClick="checkAnswer('${ans}')">${ans}</button>`;
+  answers.forEach((ans, i) => {
+    // format the button like this: 1. first answer
+    let btnCaption = `${i + 1}. ${ans}`;
+    let qsButton = `<button type="button" class="btn btn-sm" onClick="checkAnswer('${ans}')">${btnCaption}</button>`;
     answerChoicees.append(qsButton);
   });
   //start by fading the question section in
