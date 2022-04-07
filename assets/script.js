@@ -86,19 +86,6 @@ function startGame() {
   }, 1000);
 }
 
-function handleCorrect() {
-  correct.show();
-  correct.hide(3000);
-  correctAnswers++;
-}
-
-function handleWrong() {
-  wrong.show();
-  wrong.hide(3000);
-  count = count - 10;
-  wrongAnswers++;
-}
-
 function nextQuestion() {
   if (currentQuestion >= questions.length) {
     console.log("reached last question");
@@ -119,10 +106,26 @@ function nextQuestion() {
   qaSection.fadeIn();
 }
 
+// check if the answer they chose matches the correct answer
 function checkAnswer(answer) {
-  questions[currentQuestion].correctAnswer === answer
-    ? handleCorrect()
-    : handleWrong();
+  // if correct, show correct notification for 3 seconds,
+  // then increment correct answers
+  if (questions[currentQuestion].correctAnswer === answer) {
+    correct.show();
+    correct.hide(3000);
+    correctAnswers++;
+  } else {
+    // if wrong, show incorrect notification for 3 seconds, increment wrong answers,
+    // and take 10 seconds off the timer
+    wrong.show();
+    wrong.hide(3000);
+    count = count - 10;
+    wrongAnswers++;
+  }
+
+  // go to next question
   currentQuestion++;
+
+  // fade the section and execute next question as the callback
   qaSection.fadeOut(nextQuestion);
 }
