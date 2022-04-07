@@ -31,7 +31,7 @@
                     answers will penalize your score time by 10 seconds!</p>
                 <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
             </div>
-            <div id="qa-section" class="col-6" style="display: none;">
+            <div id="qa-section" class="col-6 message-screen" style="display: none;">
                 <h1 id="question-prompt">
                     <!-- Questions will go here -->
                 </h1>
@@ -41,6 +41,15 @@
                     <button type="button" class="btn btn-sm">Answer 1</button>
                     <button type="button" class="btn btn-sm">Answer 1</button>
                 </div>
+            </div>
+            <div id="qa-game-over" class="col-6 message-screen">
+                <h1>Game over</h1>
+                <p>Your score is: <span id="score"></span></p>
+                <div>
+                    <p>Enter initials: </p> <input type="text" class="form-control" aria-label="Enter your initials">
+                    <button type="button" class="btn btn-sm">Submit</button>
+                </div>
+                <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
             </div>
         </div>
         <div class="row">

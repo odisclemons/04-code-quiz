@@ -39,7 +39,8 @@ p {
   display: none;
 }
 
-#qa-welcome {
+#qa-welcome,
+#qa-game-over {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,6 +48,10 @@ p {
   margin: auto;
   text-align: center;
   color: black;
+}
+
+#qa-game-over {
+  display: none;
 }
 
 #qa-welcome p {

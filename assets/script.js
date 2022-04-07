@@ -2,6 +2,7 @@
 var qaSection = $("#qa-section");
 var qaStart = $("#qa-start");
 var qaWelcome = $("#qa-welcome");
+var qaGameOver = $("qa-game-over");
 var questionPrompt = $("#question-prompt");
 var answerChoicees = $("#answer-choices");
 var correct = $("#correct");
@@ -9,6 +10,9 @@ var wrong = $("#wrong");
 
 // start time at 60 seconds
 var count = 60;
+
+// countDown will store timer globally so we can remove it later
+var countDown;
 
 // start at question 0 in array and iterate by 1 each time
 var currentQuestion = 0;
@@ -39,17 +43,21 @@ $(() => {
 });
 
 // what to do when time is up?
-function timesUp() {
-  console.log("Time is up!");
+function handleGameOver() {
+  console.log("game over!");
+  countDown = null;
+  count = 0;
+  $("#cur-time").text("0");
+  qaSection.hide(() => $(qaGameOver.fadeIn()));
 }
 
 function startGame() {
   //start the countdown
-  var countDown = setInterval(() => {
-    // when timer reaches 0 remove interval and execute timesUp
+  countDown = setInterval(() => {
+    // when timer reaches 0 remove interval and execute gameOver
     if (count < 0) {
       countDown = null;
-      timesUp();
+      handleGameOver();
       return;
     }
 
@@ -63,26 +71,40 @@ function startGame() {
   }, 1000);
 }
 
-function showCorrect() {
+function handleCorrect() {
   correct.show();
   correct.hide(3000);
+  correctAnswers++;
 }
 
-function showWrong() {
+function handleWrong() {
   wrong.show();
   wrong.hide(3000);
+  count = count - 10;
+  wrongAnswers++;
 }
 
 function nextQuestion() {
-  if (currentQuestion >= questions.length) return;
-  let { qs, answers, correctAnswer } = questions[currentQuestion];
+  if (currentQuestion >= questions.length) {
+    handleGameOver();
+    return;
+  }
+  let { qs, answers } = questions[currentQuestion];
 
   questionPrompt.text(qs);
   answerChoicees.html("");
   answers.forEach((ans) => {
-    let qsButton = `<button type="button" class="btn btn-sm" onClick="selectAnswer('${ans}')">${ans}</button>`;
+    let qsButton = `<button type="button" class="btn btn-sm" onClick="checkAnswer('${ans}')">${ans}</button>`;
     answerChoicees.append(qsButton);
   });
   //start by fading the question section in
   qaSection.fadeIn();
+}
+
+function checkAnswer(answer) {
+  questions[currentQuestion].correctAnswer === answer
+    ? handleCorrect()
+    : handleWrong();
+  currentQuestion++;
+  qaSection.fadeOut(nextQuestion);
 }
