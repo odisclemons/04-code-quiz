@@ -44,10 +44,22 @@ $(() => {
 
 // what to do when time is up?
 function handleGameOver() {
-  console.log("game over!");
+  // remove interval
   clearInterval(countDown);
+
+  // just making sure the count stops
   count = 0;
   $("#cur-time").text("0");
+
+  // show the score
+  // if they got 80% or more, they get hype !!!, otherwise they get the boring "."
+  $("#score").text(
+    `${correctAnswers} out of ${questions.length} correct${
+      correctAnswers / questions.length >= 0.8 ? "!!!" : "."
+    }`
+  );
+  // hide the question list
+  // after its hidden, callback displays game over screen
   qaSection.hide(() => {
     qaGameOver.css({ display: "flex" });
     $(qaGameOver.fadeIn());

@@ -34,6 +34,12 @@ p {
   min-height: 100vh;
 }
 
+.in-a-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #qa-section {
   margin: auto;
   display: none;
@@ -54,7 +60,8 @@ p {
   display: none;
 }
 
-#qa-welcome p {
+#qa-welcome p,
+#qa-game-over p {
   color: black;
 }
 
