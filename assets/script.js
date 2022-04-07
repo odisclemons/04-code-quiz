@@ -1,7 +1,16 @@
 var qaSection = $("#qa-section");
 var qaStart = $("#qa-start");
 var qaWelcome = $("#qa-welcome");
-var count = 3;
+var count = 60;
+var currentQuestion = 0;
+
+var questions = [
+  {
+    qs: "Commonly used data types DO NOT include:",
+    answers: ["strings", "booleans", "alerts", "numbers"],
+    correctAnswer: "alerts",
+  },
+];
 
 $(() => {
   qaStart.click(() => {
