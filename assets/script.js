@@ -7,6 +7,9 @@ var questionPrompt = $("#question-prompt");
 var answerChoicees = $("#answer-choices");
 var btnHsSubmit = $("#btn-hs-submit");
 var inpHs = $("#inp-hs")[0];
+var highScores = $("#high-scores");
+var highScoreList = $("#high-score-list");
+var viewHighScores = $("#view-high-scores");
 var correct = $("#correct");
 var wrong = $("#wrong");
 
@@ -39,15 +42,17 @@ var questions = [
     answers: ["quotes", "curly brackets", "parentheses", "square brackets"],
     correctAnswer: "parentheses",
   },
+  {
+    qs: "Arrays in javascript can be used to store _____",
+    answers: [
+      "numbers and strings",
+      "other arrays",
+      "booleans",
+      "all of the above",
+    ],
+    correctAnswer: "all of the above",
+  },
 ];
-
-// after document is ready, add event listener for initial start button
-$(() => {
-  qaStart.click(() => {
-    // after click, fadeout welcome screen for 2 seconds then trigger start game function
-    qaWelcome.fadeOut(1500, () => startGame());
-  });
-});
 
 // what to do when time is up?
 function handleGameOver() {
@@ -86,7 +91,7 @@ function startGame() {
     nextQuestion();
 
     console.log(count);
-    // update time ever second and -1 until we get to 0
+    // update time every second and -1 until we get to 0
     // (also, give them 1 more second after 0 but dont show it)
     $("#cur-time").text(count);
     count--;
@@ -157,3 +162,41 @@ function handleHsSubmit() {
     localStorage.setItem("cqScores", JSON.stringify([newScore]));
   }
 }
+
+function getHighScores() {
+  //get current scores from localstorage
+  let scores = JSON.parse(localStorage.getItem("cqScores"));
+
+  //empty the list (each time you click, it will keep duplicating)
+  highScoreList.empty();
+
+  // if scores is an array
+  if (Array.isArray(scores)) {
+    //first sort them by score
+    scores
+      .sort((a, b) => b.score - a.score)
+      // then map through and create a new li for each one
+      .map((usr) => {
+        let { name, score } = usr;
+        let li = `<li>${name} - ${score}</li>`;
+
+        //append li to ul of high scores
+        highScoreList.append(li);
+      });
+  }
+  qaWelcome.hide();
+  qaGameOver.hide(() => {
+    highScores.css({ display: "flex" });
+    $(highScores.fadeIn());
+  });
+}
+
+// after document is ready, add event listener for initial start button
+$(() => {
+  qaStart.click(() => {
+    // after click, fadeout welcome screen for 2 seconds then trigger start game function
+    qaWelcome.fadeOut(1500, () => startGame());
+  });
+
+  viewHighScores.click(getHighScores);
+});

@@ -2,6 +2,10 @@
   --primary: darkviolet;
   --light: #ccc;
 }
+
+li:nth-child(odd) {
+  background: rgba(148, 0, 211, 0.2);
+}
 html {
   font-size: 20px;
   color: var(--primary);
@@ -46,7 +50,8 @@ p {
 }
 
 #qa-welcome,
-#qa-game-over {
+#qa-game-over,
+#high-scores {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -54,6 +59,14 @@ p {
   margin: auto;
   text-align: center;
   color: black;
+}
+
+#high-scores {
+  align-items: flex-start;
+}
+
+#high-score-list {
+  min-width: 50%;
 }
 
 #qa-game-over,

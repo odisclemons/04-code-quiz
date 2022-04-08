@@ -15,9 +15,11 @@
     <div id="pageWrapper" class="container-fluid">
         <div class="row">
             <div id="page-header" class="col header-col justify-content-start">
-                <p>
+
+                <p id="view-high-scores">
                     View High Scores
                 </p>
+
             </div>
             <div class="col header-col justify-content-end">
                 <p>Time:&nbsp;<span id="cur-time">60</span></p>
@@ -30,7 +32,7 @@
                 <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
                     answers will penalize your score time by 10 seconds!</p>
                 <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
-                <button id="ls-test" type="button" class="btn btn-sm">Test Local Storage</button>
+                <!-- <button type="button" class="btn btn-sm">Test Local Storage</button> -->
             </div>
             <div id="qa-section" class="col-6" style="display: none;">
                 <h1 id="question-prompt">
@@ -45,13 +47,24 @@
                 <p>Your score is: <span id="score"></span></p>
                 <div class="in-a-row">
                     <p>Enter initials: </p> <input id="inp-hs" type="text" class="form-control"
-                        aria-label="Enter your initials" maxlength="3" placeholder="3 characters">
+                        aria-label="Enter your initials" maxlength="3" placeholder="3 characters only">
                     <button id="btn-hs-submit" type="button" class="btn btn-sm"
                         onclick="handleHsSubmit()">Submit</button>
                 </div>
             </div>
             <div id="high-scores" class="col-6">
                 <h1>High Scores</h1>
+                <ol id="high-score-list">
+                    <!-- high scores will go here -->
+                </ol>
+                <div class="d-flex justify-content-between" style="min-width: 50%;">
+
+                    <button type="button" class="btn btn-sm" onclick="goBack()">Go
+                        Back</button>
+
+                    <button type="button" class="btn btn-sm" onclick="clearScores()">Clear
+                        Scores</button>
+                </div>
             </div>
         </div>
         <div class="row">
