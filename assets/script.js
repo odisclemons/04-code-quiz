@@ -62,6 +62,7 @@ var questions = [
 function handleGameOver() {
   // remove interval
   clearInterval(countDown);
+  countDown = null;
 
   // just making sure the count stops
   count = 0;
@@ -91,18 +92,19 @@ function startGame() {
   correctAnswers = 0;
   wrongAnswers = 0;
   inpHs.value = "";
+
   //start the countdown
   countDown = setInterval(() => {
     // when timer reaches 0 remove interval and execute gameOver
     if (count < 0) {
       clearInterval(countDown);
+      countDown = null;
       handleGameOver();
       return;
     }
 
     nextQuestion();
 
-    console.log(count);
     // update time every second and -1 until we get to 0
     // (also, give them 1 more second after 0 but dont show it)
     $("#cur-time").text(count);
@@ -111,22 +113,29 @@ function startGame() {
 }
 
 function nextQuestion() {
+  // if no more questions, gameOver
   if (currentQuestion >= questions.length) {
-    console.log("reached last question");
     handleGameOver();
     return;
   }
+
+  // destructure next question and possible answers
   let { qs, answers } = questions[currentQuestion];
 
   questionPrompt.text(qs);
   answerChoicees.html("");
+
+  // loop through answers and make buttons for them
   answers.forEach((ans, i) => {
     // format the button like this: 1. first answer
     let btnCaption = `${i + 1}. ${ans}`;
-    let qsButton = `<button type="button" class="btn btn-sm" onClick="checkAnswer('${ans}')">${btnCaption}</button>`;
+    let qsButton = `<button type="button" class="btn btn-sm" onClick="checkAnswer('${ans}')" aria-label="option ${
+      i + 1
+    }: ${ans}">${btnCaption}</button>`;
     answerChoicees.append(qsButton);
   });
-  //start by fading the question section in
+
+  // fade the question section in
   qaSection.fadeIn();
 }
 
@@ -178,6 +187,9 @@ function handleHsSubmit() {
 }
 
 function getHighScores() {
+  // if timer is running, dont bother showing scores
+  if (countDown) return;
+
   //get current scores from localstorage
   let scores = JSON.parse(localStorage.getItem("cqScores"));
 
@@ -198,10 +210,13 @@ function getHighScores() {
         highScoreList.append(li);
       });
   }
+
+  // make sure these sections are hidden
   qaWelcome.hide();
   qaGameOver.hide();
 
   qaGameOver.hide(() => {
+    //show the high scores now
     highScores.css({ display: "flex" });
     $(highScores.fadeIn());
   });
@@ -214,14 +229,17 @@ $(() => {
     qaWelcome.fadeOut(1000, () => startGame());
   });
 
+  // hide the high scores and show welcome screen
   btnGoBack.click(() => {
     highScores.fadeOut(1000, () => qaWelcome.fadeIn(1000));
   });
 
+  // clear local storage of scores
   btnClearScores.click(() => {
     localStorage.removeItem("cqScores");
     getHighScores();
   });
 
+  // handle the high scores link
   viewHighScores.click(getHighScores);
 });

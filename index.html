@@ -16,7 +16,7 @@
         <div class="row">
             <div id="page-header" class="col header-col justify-content-start">
 
-                <p id="view-high-scores">
+                <p id="view-high-scores" role="button">
                     View High Scores
                 </p>
 
@@ -31,8 +31,9 @@
                 <h1>Coding Quiz Challenge</h1>
                 <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
                     answers will penalize your score time by 10 seconds!</p>
-                <br /> <button id="qa-start" type="button" class="btn btn-sm">Start Quiz</button>
-                <!-- <button type="button" class="btn btn-sm">Test Local Storage</button> -->
+                <br /> <button id="qa-start" type="button" class="btn btn-sm" aria-label="start quiz">Start
+                    Quiz</button>
+
             </div>
             <div id="qa-section" class="col-6" style="display: none;">
                 <h1 id="question-prompt">
@@ -48,8 +49,8 @@
                 <div class="in-a-row">
                     <p>Enter initials: </p> <input id="inp-hs" type="text" class="form-control"
                         aria-label="Enter your initials" maxlength="3" placeholder="3 characters only">
-                    <button id="btn-hs-submit" type="button" class="btn btn-sm"
-                        onclick="handleHsSubmit()">Submit</button>
+                    <button id="btn-hs-submit" type="button" class="btn btn-sm" onclick="handleHsSubmit()"
+                        aria-label="submit initials">Submit</button>
                 </div>
             </div>
             <div id="high-scores" class="col-6">
@@ -59,10 +60,10 @@
                 </ol>
                 <div class="d-flex justify-content-between" style="min-width: 50%;">
 
-                    <button id="btn-go-back" type="button" class="btn btn-sm">Go
+                    <button id="btn-go-back" type="button" class="btn btn-sm" aria-label="back to home screen">Go
                         Back</button>
 
-                    <button id="btn-clear-scores" class="btn btn-sm">Clear
+                    <button id="btn-clear-scores" class="btn btn-sm" aria-label="clear scores">Clear
                         Scores</button>
                 </div>
             </div>
