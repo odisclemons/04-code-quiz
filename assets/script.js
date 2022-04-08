@@ -10,6 +10,10 @@ var inpHs = $("#inp-hs")[0];
 var highScores = $("#high-scores");
 var highScoreList = $("#high-score-list");
 var viewHighScores = $("#view-high-scores");
+
+var btnGoBack = $("#btn-go-back");
+var btnClearScores = $("#btn-clear-scores");
+
 var correct = $("#correct");
 var wrong = $("#wrong");
 
@@ -61,6 +65,7 @@ function handleGameOver() {
 
   // just making sure the count stops
   count = 0;
+
   $("#cur-time").text("0");
 
   // show the score
@@ -79,6 +84,13 @@ function handleGameOver() {
 }
 
 function startGame() {
+  // make sure these values are reset because it will cause wierd behavior after
+  // completing a game and starting a new one
+  count = 60;
+  currentQuestion = 0;
+  correctAnswers = 0;
+  wrongAnswers = 0;
+  inpHs.value = "";
   //start the countdown
   countDown = setInterval(() => {
     // when timer reaches 0 remove interval and execute gameOver
@@ -161,6 +173,8 @@ function handleHsSubmit() {
     // replace it with the new score in its own array
     localStorage.setItem("cqScores", JSON.stringify([newScore]));
   }
+
+  getHighScores();
 }
 
 function getHighScores() {
@@ -185,6 +199,8 @@ function getHighScores() {
       });
   }
   qaWelcome.hide();
+  qaGameOver.hide();
+
   qaGameOver.hide(() => {
     highScores.css({ display: "flex" });
     $(highScores.fadeIn());
@@ -194,8 +210,17 @@ function getHighScores() {
 // after document is ready, add event listener for initial start button
 $(() => {
   qaStart.click(() => {
-    // after click, fadeout welcome screen for 2 seconds then trigger start game function
-    qaWelcome.fadeOut(1500, () => startGame());
+    // after click, fadeout welcome screen for 1 second then trigger start game function
+    qaWelcome.fadeOut(1000, () => startGame());
+  });
+
+  btnGoBack.click(() => {
+    highScores.fadeOut(1000, () => qaWelcome.fadeIn(1000));
+  });
+
+  btnClearScores.click(() => {
+    localStorage.removeItem("cqScores");
+    getHighScores();
   });
 
   viewHighScores.click(getHighScores);

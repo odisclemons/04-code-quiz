@@ -6,6 +6,7 @@
 li:nth-child(odd) {
   background: rgba(148, 0, 211, 0.2);
 }
+
 html {
   font-size: 20px;
   color: var(--primary);
